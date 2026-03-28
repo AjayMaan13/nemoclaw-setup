@@ -1,0 +1,33 @@
+name: nvidia-nim
+description: "NVIDIA NIM inference access — allow agent to call integrate.api.nvidia.com"
+
+policies:
+  - name: nvidia-nim
+    networkPolicies:
+      - endpoint: integrate.api.nvidia.com
+        port: 443
+        protocol: REST
+        tlsTermination: true
+        enforce: true
+        methods:
+          - POST
+        paths:
+          - /v1/chat/completions
+          - /v1/completions
+          - /v1/embeddings
+      - endpoint: build.nvidia.com
+        port: 443
+        protocol: REST
+        tlsTermination: true
+        enforce: true
+        methods:
+          - GET
+        paths:
+          - /models/**
+    binaries:
+      - /usr/local/bin/openclaw
+
+# Usage:
+# 1. Copy this file to your NemoClaw agent directory
+# 2. Set your key: export NVIDIA_API_KEY=nvapi-...
+# 3. Apply: nemoclaw <name> policy-add

@@ -1,0 +1,37 @@
+name: github
+description: "GitHub API access — read repos, issues, PRs, and code"
+
+policies:
+  - name: github
+    networkPolicies:
+      - endpoint: api.github.com
+        port: 443
+        protocol: REST
+        tlsTermination: true
+        enforce: true
+        methods:
+          - GET
+          - POST
+          - PATCH
+        paths:
+          - /repos/**
+          - /user/**
+          - /orgs/**
+          - /issues/**
+          - /pulls/**
+      - endpoint: github.com
+        port: 443
+        protocol: REST
+        tlsTermination: true
+        enforce: true
+        methods:
+          - GET
+        paths:
+          - /**
+    binaries:
+      - /usr/local/bin/openclaw
+
+# Usage:
+# 1. Copy this file to your NemoClaw agent directory
+# 2. Set your token: export GITHUB_TOKEN=ghp_...
+# 3. Apply: nemoclaw <name> policy-add
