@@ -1,0 +1,27 @@
+name: slack
+description: "Slack API access — send messages and respond to events in your workspace"
+
+policies:
+  - name: slack
+    networkPolicies:
+      - endpoint: slack.com
+        port: 443
+        protocol: REST
+        tlsTermination: true
+        enforce: true
+        methods:
+          - GET
+          - POST
+        paths:
+          - /api/**
+      - endpoint: wss-primary.slack.com
+        port: 443
+        protocol: WSS
+        enforce: true
+    binaries:
+      - /usr/local/bin/openclaw
+
+# Usage:
+# 1. Copy this file to your NemoClaw agent directory
+# 2. Set your tokens: export SLACK_BOT_TOKEN=xoxb-... && export SLACK_APP_TOKEN=xapp-...
+# 3. Apply: nemoclaw <name> policy-add

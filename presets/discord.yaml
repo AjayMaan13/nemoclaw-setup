@@ -1,0 +1,28 @@
+name: discord
+description: "Discord API access — send messages and respond to events via your bot"
+
+policies:
+  - name: discord
+    networkPolicies:
+      - endpoint: discord.com
+        port: 443
+        protocol: REST
+        tlsTermination: true
+        enforce: true
+        methods:
+          - GET
+          - POST
+          - PATCH
+        paths:
+          - /api/v10/**
+      - endpoint: gateway.discord.gg
+        port: 443
+        protocol: WSS
+        enforce: true
+    binaries:
+      - /usr/local/bin/openclaw
+
+# Usage:
+# 1. Copy this file to your NemoClaw agent directory
+# 2. Set your bot token: export DISCORD_BOT_TOKEN=your-token
+# 3. Apply: nemoclaw <name> policy-add
