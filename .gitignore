@@ -3,5 +3,5 @@ workshop/.env
 .env
 
 # Keep the example file
-!.env.example
+.env.example
 !workshop/.env.example
